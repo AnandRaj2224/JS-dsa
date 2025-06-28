@@ -30,7 +30,7 @@ function fact(n) {
 // console.log(fact(5));
 
 /* 
-Write a function called all which accepts an array and a callback and returns true if every value in the array returns true when passed as parameter to the callback function
+4.Write a function called all which accepts an array and a callback and returns true if every value in the array returns true when passed as parameter to the callback function
 */
 let arr = [1,2,3,4,5];
 function all(arr, callback) {
@@ -43,4 +43,15 @@ function all(arr, callback) {
 function isGreaterThan10(num) {
   return num > 10;
 }
-console.log(all(arr,isGreaterThan10));
+// console.log(all(arr,isGreaterThan10));
+
+/*
+5.Write a function called productOfArray which takes in an array of numbers and returns the product of them all
+*/
+let i = arr.length-1;
+function productOfArray(arr,i) {
+  if(i === 0) return arr[i];
+  return arr[i] * productOfArray(arr,i-1);
+}
+
+console.log(productOfArray(arr,i));
