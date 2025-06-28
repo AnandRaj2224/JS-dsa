@@ -19,7 +19,7 @@ function power(base,expo) {
 // console.log(power(2,3));
 
 /*
-Write a function that returns the factorial of a number.
+3.Write a function that returns the factorial of a number.
  As a quick refresher, a factorial of a number is the result of that number multiplied by the number before it, and the number before that number, and so on, until you reach 1. The factorial of 1 is just 1.
 */
 
@@ -28,3 +28,19 @@ function fact(n) {
   return n * fact(n-1);
 }
 // console.log(fact(5));
+
+/* 
+Write a function called all which accepts an array and a callback and returns true if every value in the array returns true when passed as parameter to the callback function
+*/
+let arr = [1,2,3,4,5];
+function all(arr, callback) {
+   if(arr.length === 0) return true;
+
+   if(!callback(arr[0])) return false;
+
+   return all(arr.slice(1), callback);
+}
+function isGreaterThan10(num) {
+  return num > 10;
+}
+console.log(all(arr,isGreaterThan10));
