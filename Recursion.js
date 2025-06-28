@@ -54,4 +54,43 @@ function productOfArray(arr,i) {
   return arr[i] * productOfArray(arr,i-1);
 }
 
-console.log(productOfArray(arr,i));
+// console.log(productOfArray(arr,i));
+
+/*
+6.Write a function called contains that searches for a value in a nested object. 
+It returns true if the object contains that value.
+*/
+var nestedObject = {
+    data: {
+        info: {
+            stuff: {
+                thing: {
+                    moreStuff: {
+                        magicNumber: 44,
+                        something: 'foo2'
+                    }
+                }
+            }
+        }
+    }
+}
+
+let hasIt = contains(nestedObject, 44); // true
+let doesntHaveIt = contains(nestedObject, "foo"); // false
+
+function contains(obj,target) {
+  for(const key in obj) {
+    if(!obj.hasOwnProperty) continue;
+
+    const value = obj[key];
+
+    if(value === target) return true;
+
+    if(typeof(value) === 'object' && value != null ) {
+     if(contains(value,target)) return true;
+    }
+  }
+  return false;
+}
+// console.log(hasIt);
+// console.log(doesntHaveIt);
