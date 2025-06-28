@@ -12,3 +12,8 @@ function sumRange (n) {
 2.Write a function called power which takes in a base and an exponent.
 If the exponent is 0, return 1.
 */
+function power(base,expo) {
+  if(expo === 0) return 1;
+  return base * power(base,expo-1);
+}
+console.log(power(2,3));
