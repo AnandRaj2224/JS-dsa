@@ -94,3 +94,26 @@ function contains(obj,target) {
 }
 // console.log(hasIt);
 // console.log(doesntHaveIt);
+
+/*
+7.Given a multi-dimensional integer array, return the total number of integers stored inside this array
+*/
+const seven = [[[5], 3], 0, 2, ['foo'], [], [4, [5, 6]]];
+
+function totalIntegers(arr) {
+  let count = 0;                      // ⬅ each call gets its own “count”
+  for (const v of arr) {
+    if (Array.isArray(v)) {
+      // ⬅ dive into sub-array and add whatever it returns
+      count += totalIntegers(v);
+    }
+    else if (typeof v === 'number') {
+      // ⬅ found a number, bump this call’s count
+      count += 1;
+    }
+    // non-number, non-array items (like strings) are skipped
+  }
+  return count;                       // ⬅ bubble up how many nums we saw
+}
+
+console.log(totalIntegers(seven));   // → 7
