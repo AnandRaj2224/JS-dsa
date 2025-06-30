@@ -116,4 +116,37 @@ function totalIntegers(arr) {
   return count;                       // ⬅ bubble up how many nums we saw
 }
 
-console.log(totalIntegers(seven));   // → 7
+// console.log(totalIntegers(seven));   // → 7
+
+/*
+8.Write a function that sums squares of numbers in list that may contain more lists
+*/
+
+function  sumSquare(arr1) {
+  let squaredSum = 0;
+
+  for(const value of arr1) {
+    if(Array.isArray(value)) {
+
+      squaredSum += sumSquare(value);
+    }
+    else if(typeof value === 'number') {
+
+      squaredSum += value*value;
+    }
+  }
+
+    return squaredSum;
+}
+
+var l = [1,2,3]; 
+console.log(sumSquare(l)); // 1 + 4 + 9 = 14
+
+l = [[1,2],3]; 
+console.log(sumSquare(l)); // 1 + 4 + 9 = 14
+
+l = [[[[[[[[[1]]]]]]]]] 
+console.log(sumSquare(l)); // 1 = 1
+
+l = [10,[[10],10],[10]] 
+console.log(sumSquare(l)); // 100 + 100 + 100 + 100 = 400
