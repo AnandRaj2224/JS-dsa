@@ -139,6 +139,7 @@ function  sumSquare(arr1) {
     return squaredSum;
 }
 
+/*
 var l = [1,2,3]; 
 console.log(sumSquare(l)); // 1 + 4 + 9 = 14
 
@@ -150,3 +151,21 @@ console.log(sumSquare(l)); // 1 = 1
 
 l = [10,[[10],10],[10]] 
 console.log(sumSquare(l)); // 100 + 100 + 100 + 100 = 400
+*/
+
+/*
+9.The function should return an array containing repetitions of the number argument. For instance, replicate(3, 5) should return [5,5,5]. If the times argument is negative, return an empty array.
+*/
+
+function repetitions(repeat, num) {
+  if (repeat <= 0) {
+    return [];
+  }
+  let repetitionArray = repetitions(repeat-1,num);
+
+  repetitionArray.push(num);
+  return repetitionArray;
+  
+}
+
+console.log(repetitions(3, 5));
