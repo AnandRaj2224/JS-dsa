@@ -37,4 +37,24 @@ function binarySearch (value,target) {
   return -1;
 }
 
-console.log(binarySearch([2,3,4,5,6,7,8],5));
+// console.log(binarySearch([2,3,4,5,6,7,8],5));
+
+
+// my implementation of naive string search
+
+function stringSearch (str1,str2) {
+
+  for(let i = 0; i <= str1.length - str2.length; i++) {
+    let flag = true;
+    for(let j = 0; j < str2.length; j++) {
+      if(str1[i+j] !== str2[j]) {
+        flag = false;
+        break;
+      }
+    }
+   if(flag) return true;
+  }
+  return false;
+}
+
+console.log(stringSearch("anandraj","andrn"));
