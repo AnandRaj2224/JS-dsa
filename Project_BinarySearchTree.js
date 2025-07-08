@@ -179,11 +179,26 @@ class BinarySearchTree {
 
     return getHeight(current);
   }
+  depth(value) {;
+    let current = this.root;
+    let nodeDepth = 0;
+    function getdepth(current,nodeDepth) {
+      if(current === null) return null;
+      if (current.value === value) return nodeDepth;
+      const left = getdepth(current.left,nodeDepth+1);
+      if(left !== null) {
+        return left;
+      }
+      return getdepth(current.right,nodeDepth+1);
+    }
+
+    return getdepth(current,nodeDepth);
+  }
 }
 
 let tree = new BinarySearchTree();
 
-tree.buildTree([20, 10, 13, 12, 14, 29, 41, 5, 21, 8, 4]);
+tree.buildTree([20, 10, 13, 12, 14, 29, 41, 5, 21, 8, 4,3,2,1]);
 console.log(prettyPrint(tree.root));
 
-console.log(tree.height(20));
+console.log(tree.depth(1));
