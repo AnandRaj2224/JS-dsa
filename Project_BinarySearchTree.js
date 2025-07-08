@@ -30,6 +30,7 @@ class BinarySearchTree {
     } else {
       let currentNode = this.root;
       while (true) {
+        if(value === currentNode.value) return;
         if (value < currentNode.value) {
           if (!currentNode.left) {
             currentNode.left = newNode;
@@ -45,6 +46,7 @@ class BinarySearchTree {
         }
       }
     }
+    return this.root;
   }
   buildTree(array) {
     for (const value of array) {
@@ -182,34 +184,63 @@ class BinarySearchTree {
   depth(value) {
     let current = this.root;
     let nodeDepth = 0;
-    function getdepth(current,nodeDepth) {
-      if(current === null) return null;
+    function getdepth(current, nodeDepth) {
+      if (current === null) return null;
       if (current.value === value) return nodeDepth;
-      const left = getdepth(current.left,nodeDepth+1);
-      if(left !== null) {
+      const left = getdepth(current.left, nodeDepth + 1);
+      if (left !== null) {
         return left;
       }
-      return getdepth(current.right,nodeDepth+1);
+      return getdepth(current.right, nodeDepth + 1);
     }
 
-    return getdepth(current,nodeDepth);
+    return getdepth(current, nodeDepth);
   }
-isBalanced(node = this.root) {
-  if (!node) return true;
+  isBalanced(node = this.root) {
+    if (!node) return true;
 
-  // only call height if the child exists
-  const leftH  = node.left  ? this.height(node.left.value)  : -1;
-  const rightH = node.right ? this.height(node.right.value) : -1;
+    // only call height if the child exists
+    const leftH = node.left ? this.height(node.left.value) : -1;
+    const rightH = node.right ? this.height(node.right.value) : -1;
 
-  if (Math.abs(leftH - rightH) > 1) return false;
-  return this.isBalanced(node.left) && this.isBalanced(node.right);
+    if (Math.abs(leftH - rightH) > 1) return false;
+    return this.isBalanced(node.left) && this.isBalanced(node.right);
+  }
+  _buildBalanced(arr, start = 0, end = arr.length - 1) {
+    if (start > end) return null;
+
+    const mid   = Math.floor((start + end) / 2);
+    const node  = new Node(arr[mid]);
+
+    node.left   = this._buildBalanced(arr, start, mid - 1);
+    node.right  = this._buildBalanced(arr, mid + 1, end);
+
+    return node;
+  }
+rebalance() {
+    // 1. Gather sorted values
+    const data = [];
+    (function traverse(node) {
+      if (!node) return;
+      traverse(node.left);
+      data.push(node.value);
+      traverse(node.right);
+    })(this.root);
+
+    // 2. Build a new, balanced tree
+    this.root = this._buildBalanced(data);
+  }
 }
-}
-
 let tree = new BinarySearchTree();
 
-tree.buildTree([20, 10, 13, 12, 14, 29, 41, 5, 21, 8, 4]);
 
-console.log(prettyPrint(tree.root));
-
-console.log(tree.isBalanced());
+let nodes = [];
+function createNodes() {
+  let i = 30;
+  while( i--) {
+    nodes.push(Math.trunc((Math.random()*10)*(10*Math.random())));
+  }
+}
+createNodes();
+tree.buildTree(nodes);
+prettyPrint(tree.root);
