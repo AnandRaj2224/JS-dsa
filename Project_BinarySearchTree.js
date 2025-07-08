@@ -136,7 +136,6 @@ class BinarySearchTree {
     }
     traverse(node);
     callBack(data);
-    
   }
   preOrder(callBack) {
     if (typeof callBack !== "function") {
@@ -168,6 +167,18 @@ class BinarySearchTree {
     traverse(node);
     callBack(data);
   }
+  height(value) {
+    let current = this.find(value);
+
+    function getHeight(node) {
+      if (node === null) return -1;
+      const leftHeight = getHeight(node.left);
+      const rightHeight = getHeight(node.right);
+      return 1 + Math.max(leftHeight, rightHeight);
+    }
+
+    return getHeight(current);
+  }
 }
 
 let tree = new BinarySearchTree();
@@ -175,21 +186,4 @@ let tree = new BinarySearchTree();
 tree.buildTree([20, 10, 13, 12, 14, 29, 41, 5, 21, 8, 4]);
 console.log(prettyPrint(tree.root));
 
-tree.inOrder((data) => {
-  for (const v of data) console.log(`the nodes are :${v}`);
-});
-
-console.log("\n");
-console.log("\n");
-
-tree.preOrder((newData) => {
-  for (const v of newData) console.log(`the nodes are :${v}`);
-});
-
-console.log("\n");
-console.log("\n");
-
-tree.postOrder((newData) => {
-  for (const v of newData) console.log(`the nodes are :${v}`);
-});
-
+console.log(tree.height(20));
