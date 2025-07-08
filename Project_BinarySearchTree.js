@@ -102,6 +102,26 @@ class BinarySearchTree {
       parent.right = child;
     }
   }
+  bfs() {
+    let data = [];
+    let queue = [];
+    let current = this.root;
+    queue.push(current);
+    while (queue.length > 0) {
+      current = queue.shift();
+      data.push(current.value);
+      if (current.left) queue.push(current.left);
+      if (current.right) queue.push(current.right);
+    }
+    return data;
+  }
+  levelOrder(callBack) {
+    if (typeof callBack !== "function") {
+      throw TypeError("no callback provided");
+    }
+    let newData = this.bfs();
+    callBack(newData);
+  }
 }
 
 let tree = new BinarySearchTree();
@@ -109,6 +129,9 @@ let tree = new BinarySearchTree();
 tree.buildTree([20, 10, 13, 12, 14, 29, 41, 5, 21, 8, 4]);
 console.log(prettyPrint(tree.root));
 
-tree.delete(10);
+console.log(tree.bfs());
 
-console.log(prettyPrint(tree.root));
+tree.levelOrder((newData) => {
+  for (const v of newData) console.log(`the nodes are :${v}\n`);
+});
+
