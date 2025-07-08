@@ -75,6 +75,17 @@ class Bst {
     helper_recursive(current);
     return visited;
   }
+    dfs_postOrder() {
+    let visited = [];
+    let current = this.root;
+    function traverse(node) {
+      if(node.left) traverse(node.left);
+      if(node.right) traverse(node.right);
+      visited.push(node.value);
+    }
+    traverse(current);
+    return visited;
+  }
 }
 
 let tree = new Bst();
@@ -86,4 +97,4 @@ tree.insert(4);
 tree.insert(5);
 tree.insert(6);
 
-console.log(tree.dfs_preOrder());
+console.log(tree.dfs_postOrder());
