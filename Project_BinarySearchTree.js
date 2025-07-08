@@ -179,7 +179,7 @@ class BinarySearchTree {
 
     return getHeight(current);
   }
-  depth(value) {;
+  depth(value) {
     let current = this.root;
     let nodeDepth = 0;
     function getdepth(current,nodeDepth) {
@@ -194,11 +194,22 @@ class BinarySearchTree {
 
     return getdepth(current,nodeDepth);
   }
+isBalanced(node = this.root) {
+  if (!node) return true;
+
+  // only call height if the child exists
+  const leftH  = node.left  ? this.height(node.left.value)  : -1;
+  const rightH = node.right ? this.height(node.right.value) : -1;
+
+  if (Math.abs(leftH - rightH) > 1) return false;
+  return this.isBalanced(node.left) && this.isBalanced(node.right);
+}
 }
 
 let tree = new BinarySearchTree();
 
-tree.buildTree([20, 10, 13, 12, 14, 29, 41, 5, 21, 8, 4,3,2,1]);
+tree.buildTree([20, 10, 13, 12, 14, 29, 41, 5, 21, 8, 4]);
+
 console.log(prettyPrint(tree.root));
 
-console.log(tree.depth(1));
+console.log(tree.isBalanced());
