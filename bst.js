@@ -86,6 +86,17 @@ class Bst {
     traverse(current);
     return visited;
   }
+      dfs_inOrder() {
+    let visited = [];
+    let current = this.root;
+    function traverse(node) {
+      if(node.left) traverse(node.left);
+      visited.push(node.value);
+      if(node.right) traverse(node.right);
+    }
+    traverse(current);
+    return visited;
+  }
 }
 
 let tree = new Bst();
@@ -97,4 +108,4 @@ tree.insert(4);
 tree.insert(5);
 tree.insert(6);
 
-console.log(tree.dfs_postOrder());
+console.log(tree.dfs_inOrder());
