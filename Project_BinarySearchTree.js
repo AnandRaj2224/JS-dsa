@@ -122,6 +122,52 @@ class BinarySearchTree {
     let newData = this.bfs();
     callBack(newData);
   }
+  inOrder(callBack) {
+    if (typeof callBack !== "function") {
+      throw TypeError("inorder requires a callback function\n");
+    }
+    // dfs(inorder)
+    let data = [];
+    let node = this.root;
+    function traverse(node) {
+      if (node.left) traverse(node.left);
+      data.push(node.value);
+      if (node.right) traverse(node.right);
+    }
+    traverse(node);
+    callBack(data);
+    
+  }
+  preOrder(callBack) {
+    if (typeof callBack !== "function") {
+      throw TypeError("preorder requires a callback function\n");
+    }
+    // dfs(preorder)
+    let data = [];
+    let node = this.root;
+    function traverse(node) {
+      data.push(node.value);
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right);
+    }
+    traverse(node);
+    callBack(data);
+  }
+  postOrder(callBack) {
+    if (typeof callBack !== "function") {
+      throw TypeError("postorder requires a callback function\n");
+    }
+    // dfs(preorder)
+    let data = [];
+    let node = this.root;
+    function traverse(node) {
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right);
+      data.push(node.value);
+    }
+    traverse(node);
+    callBack(data);
+  }
 }
 
 let tree = new BinarySearchTree();
@@ -129,9 +175,21 @@ let tree = new BinarySearchTree();
 tree.buildTree([20, 10, 13, 12, 14, 29, 41, 5, 21, 8, 4]);
 console.log(prettyPrint(tree.root));
 
-console.log(tree.bfs());
+tree.inOrder((data) => {
+  for (const v of data) console.log(`the nodes are :${v}`);
+});
 
-tree.levelOrder((newData) => {
-  for (const v of newData) console.log(`the nodes are :${v}\n`);
+console.log("\n");
+console.log("\n");
+
+tree.preOrder((newData) => {
+  for (const v of newData) console.log(`the nodes are :${v}`);
+});
+
+console.log("\n");
+console.log("\n");
+
+tree.postOrder((newData) => {
+  for (const v of newData) console.log(`the nodes are :${v}`);
 });
 
