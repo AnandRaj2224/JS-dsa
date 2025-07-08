@@ -51,6 +51,19 @@ class Bst {
       }
     }
   }
+  bfs() {
+    let current = this.root;
+    let data = [];
+    let queue = [];
+    queue.push(current);
+    while(queue.length > 0) {
+      current = queue.shift();
+      data.push(current.value);
+      if(current.left) queue.push(current.left);
+      if(current.right) queue.push(current.right);
+    }
+    return data;
+  }
 }
 
 let tree = new Bst();
@@ -62,9 +75,4 @@ tree.insert(4);
 tree.insert(5);
 tree.insert(6);
 
-console.log(tree);
-
-console.log(tree.find(99));
-console.log(tree.find(5));
-console.log(tree.find(30));
-
+console.log(tree.bfs());
