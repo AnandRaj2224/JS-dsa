@@ -41,6 +41,15 @@ class HashMap {
       }
     }
   }
+  length() {
+    let count = 0;
+    for(let i = 0; i < this.bucket.length; i++) {
+      const chain = this.bucket[i];
+      if(!chain) continue;
+      count += chain.length; 
+    }
+    return count;
+  }
 }
 
 let hashTable = new HashMap();
@@ -57,7 +66,5 @@ hashTable.set("focus", "Performance");
 
 console.log(hashTable);
 
-hashTable.remove("name");
-
-console.log(hashTable);
+console.log(hashTable.length());
 
