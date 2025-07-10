@@ -1,5 +1,7 @@
 class HashMap {
   constructor(capacity = 20) {
+    this.size = 0;
+    this.loadFactor = 0.75;
     this.bucket = new Array(capacity);
   }
   _hash(key) {
@@ -16,6 +18,10 @@ class HashMap {
       this.bucket[index] = [];
     }
     this.bucket[index].push([key, value]);
+    this.size++;
+    if (this.size / this.bucket.length > this.loadFactor) {
+      this._resize(this.bucket.length * 2);
+    }
   }
   get(key) {
     let index = this._hash(key);
@@ -42,16 +48,11 @@ class HashMap {
     }
   }
   length() {
-    let count = 0;
-    for (let i = 0; i < this.bucket.length; i++) {
-      const chain = this.bucket[i];
-      if (!chain) continue;
-      count += chain.length;
-    }
-    return count;
+    return this.size;
   }
   clear() {
     this.bucket = new Array(this.bucket.length);
+    this.size = 0;
   }
   keys() {
     let keyArray = [];
@@ -75,7 +76,7 @@ class HashMap {
     }
     return valueArray;
   }
-  entires() {
+  entries() {
     let keyValueArray = [];
     for (let i = 0; i < this.bucket.length; i++) {
       let chain = this.bucket[i];
@@ -86,23 +87,32 @@ class HashMap {
     }
     return keyValueArray;
   }
+   _resize(newCapacity) {
+    const old = this.bucket;
+    this.bucket = new Array(newCapacity);
+    this.size   = 0;
+
+    for (const chain of old) {
+      if (!chain) continue;
+      for (const [k, v] of chain) {
+        this.set(k, v);
+      }
+    }
+  }
 }
 
-let hashTable = new HashMap();
-hashTable.set("name", "Anand");
-hashTable.set("language", "JavaScript");
-hashTable.set("topic", "Recursion");
-hashTable.set("exam", "IBPS SO");
-hashTable.set("goal", "Optimize Quick Sort");
-hashTable.set("structure", "Binary Search Tree");
-hashTable.set("method", "Radix Sort");
-hashTable.set("level", "Intermediate");
-hashTable.set("status", "Debugging");
-hashTable.set("focus", "Performance");
+let test = new HashMap();
+ test.set('apple', 'red')
+ test.set('banana', 'yellow')
+ test.set('carrot', 'orange')
+ test.set('dog', 'brown')
+ test.set('elephant', 'gray')
+ test.set('frog', 'green')
+ test.set('grape', 'purple')
+ test.set('hat', 'black')
+ test.set('ice cream', 'white')
+ test.set('jacket', 'blue')
+ test.set('kite', 'pink')
+ test.set('lion', 'golden')
 
-console.log(hashTable);
-
-console.log(hashTable.keys());
-console.log(hashTable.values());
-console.log(hashTable.entires());
-
+ test.set('moon', 'silver')
