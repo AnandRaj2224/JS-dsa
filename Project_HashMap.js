@@ -75,6 +75,17 @@ class HashMap {
     }
     return valueArray;
   }
+  entires() {
+    let keyValueArray = [];
+    for (let i = 0; i < this.bucket.length; i++) {
+      let chain = this.bucket[i];
+      if (!chain) continue;
+      for (let j = 0; j < chain.length; j++) {
+        keyValueArray.push(chain[j]);
+      }
+    }
+    return keyValueArray;
+  }
 }
 
 let hashTable = new HashMap();
@@ -93,3 +104,5 @@ console.log(hashTable);
 
 console.log(hashTable.keys());
 console.log(hashTable.values());
+console.log(hashTable.entires());
+
