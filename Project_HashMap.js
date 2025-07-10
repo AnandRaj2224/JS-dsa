@@ -64,6 +64,17 @@ class HashMap {
     }
     return keyArray;
   }
+  values() {
+    let valueArray = [];
+    for (let i = 0; i < this.bucket.length; i++) {
+      let chain = this.bucket[i];
+      if (!chain) continue;
+      for (let j = 0; j < chain.length; j++) {
+        valueArray.push(chain[j][1]);
+      }
+    }
+    return valueArray;
+  }
 }
 
 let hashTable = new HashMap();
@@ -81,3 +92,4 @@ hashTable.set("focus", "Performance");
 console.log(hashTable);
 
 console.log(hashTable.keys());
+console.log(hashTable.values());
